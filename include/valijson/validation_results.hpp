@@ -51,6 +51,36 @@ public:
     };
 
     /**
+     * @brief  Iterator for all validation errors.
+     *
+     * This struct is used to get a reference to an iterator for errors.
+     */
+    struct ErrorRange
+    {
+        typedef std::deque<Error>::const_iterator ErrorIterator;
+        ErrorRange(const std::deque<Error> &errors) : m_errors(errors) {};
+
+        ErrorIterator begin() {
+            return m_errors.begin();
+        }
+
+        ErrorIterator end() {
+            return m_errors.end();
+        }
+
+    private:
+        const std::deque<Error> &m_errors;
+    };
+
+    /**
+     * @brief  Return iterator for errors in the queue.
+     */
+    ErrorRange errorList() const
+    {
+        return { errors };
+    }
+
+    /**
      * @brief  Return the number of errors in the queue.
      */
     size_t numErrors() const
